@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 ## perl ContigsToGenomeAssemble.pl high_quality_ref.fasta contigs_or_scaffolds.fasta polish_file_or_folder(or none)
+## Author: Junyang Yue
 use File::Copy;
 use FileHandle;
 use File::Basename;
@@ -13,14 +14,6 @@ use POSIX qw/strftime/;
 use Time::HiRes qw(usleep);
 use Time::HiRes qw(sleep time);
 no strict 'refs';
-
-my $command_line;
-if (@ARGV > 0) {
-	$command_line = "perl ".$0." ".join (" ", @ARGV);
-} else {
-	$command_line = "perl ".$0;
-}
-print $command_line."\n";
 
 my $localtime_start = `date "+%Y-%m-%d %H:%M:%S"`;
 chomp ($localtime_start); #2022-01-20 14:58:58
@@ -43,9 +36,9 @@ if (@ARGV != 3) {
 }
 my ($high_quality_ref, $contigs_or_scaffolds, $polish_file_or_folder) = @ARGV;
 
-my $min_mummer_map = 3000; # default 50000
+my $min_mummer_map = 50000; # default 50000
 my $min_minimap_ratio = 0.4; # default 0.4
-my $flanking_seq = 5000; # default 100000
+my $flanking_seq = 100000; # default 100000
 
 our @suffix_list = qw(.gz .fastq .fq .fasta .fa .gff .gff3 .paf);
 my $insert_n = "N"x100;
